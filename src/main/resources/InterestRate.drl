@@ -1,0 +1,25 @@
+import  com.examples.drools.domain.SampleRequest;
+
+rule "Account is not active"
+    when
+        sObject : SampleRequest( loanStatus=="001");
+    then
+        sObject.setCode("Account is not Active");
+end;
+
+rule "Pending balance greater than 20"
+    when
+        sObject : SampleRequest( pendingBalance > 20);
+    then
+        sObject.setCode("Pending Balance greater");
+end;
+
+
+rule "Signals List Check"
+   when
+     sObject : SampleRequest($listOfString : signalsList,
+          $listOfString contains "020")
+   then
+     sObject.setCode("Signal Error 1");
+end;
+
